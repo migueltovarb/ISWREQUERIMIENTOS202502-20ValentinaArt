@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Actualizar Vehículo</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        {{ form.placa.label_tag }}
+        {{ form.placa }}
+    </div>
+
+    <div class="form-group">
+        {{ form.marca.label_tag }}
+        {{ form.marca }}
+    </div>
+
+    <div class="form-group">
+        {{ form.modelo.label_tag }}
+        {{ form.modelo }}
+    </div>
+
+    <div class="form-group">
+        {{ form.color.label_tag }}
+        {{ form.color }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+{% endblock %}

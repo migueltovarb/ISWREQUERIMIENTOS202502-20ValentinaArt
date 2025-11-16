@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="mt-4 mb-4 text-center">Vehículos Registrados</h1>
+
+<a href="{% url 'create' %}" class="btn btn-success mb-3">
+    <i class="fa fa-plus"></i> Agregar vehículo
+</a>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Placa</th>
+            <th>Marca</th>
+            <th>Color</th>
+            <th>Modelo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for data in dataset %}
+        <tr>
+            <td>{{ data.placa }}</td>
+            <td>{{ data.marca }}</td>
+            <td>{{ data.get_color_vehiculo_display }}</td>
+            <td>{{ data.modelo }}</td>
+            <td>
+                <a href="{% url 'update' data.id %}" class="btn btn-warning btn-sm">
+                    <i class="fa fa-edit"></i>
+                </a>
+
+                <!-- Botón que abre el modal -->
+                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ data.id }}">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- 🔥 MODALES DE ELIMINACIÓN (UNO POR CADA REGISTRO) -->
+{% for data in dataset %}
+<div class="modal fade" id="deleteModal{{ data.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <form action="{% url 'delete' data.id %}" method="post">
+                {% csrf_token %}
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar registro</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    ¿Deseas eliminar el vehículo <b>{{ data.placa }}</b>?
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
+
+
