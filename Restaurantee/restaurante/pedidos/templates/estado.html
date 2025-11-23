@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Estado del pedido</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<h1>📦 Estado del Pedido</h1>
+
+<p>Pedido <strong>#{{ pedido.id }}</strong></p>
+
+<div class="timeline">
+    {% for estado in estados_orden %}
+        <div class="stage {% if pedido.estado == estado %}active{% endif %}">
+            <span class="stage-name">{{ estado|capfirst }}</span>
+        </div>
+    {% endfor %}
+</div>
+
+<p>Estado actual: <strong>{{ pedido.get_estado_display }}</strong></p>
+
+<!-- Botón para avanzar estado (simulación) -->
+<a class="btn" href="/estado/?accion=avanzar">Avanzar estado</a>
+<a class="btn" href="/">Volver al menú</a>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Carrito - El Claustro</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% include 'partials/header.html' %}
+    <div class="container">
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+                <div>
+                    <h1 style="margin:0;">🛒 MI CARRITO</h1>
+                    <div class="subtitle-muted">Revisa tu pedido antes de continuar</div>
+                </div>
+                <div>
+                    <a href="{% url 'menu' %}" class="btn btn-ghost">← Seguir Comprando</a>
+                </div>
+            </div>
+
+            <div style="margin-top:18px; display:flex;gap:20px;flex-wrap:wrap;">
+                <div style="flex:1;min-width:300px;">
+                    <div id="cart-container"></div>
+                </div>
+                <aside style="width:320px;">
+                    <div class="card">
+                        <h3 style="margin-top:0">Resumen</h3>
+                        <div style="display:flex;justify-content:space-between;padding:8px 0"><div>Subtotal</div><div id="subtotal">$0</div></div>
+                        <div style="display:flex;justify-content:space-between;padding:8px 0"><div>Impuestos (10%)</div><div id="impuestos">$0</div></div>
+                        <div class="cart-total" style="padding-top:12px"><div>Total</div><div id="total">$0</div></div>
+                        <button id="confirm-btn" class="btn btn-primary btn-large checkout-btn" style="margin-top:12px" onclick="window.location.href='/checkout/'">Confirmar Pedido →</button>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const confirmBtn = document.getElementById("confirm-btn");
+            
+            // Verificar si hay items
+            const checkCart = () => {
+                const savedCart = localStorage.getItem("cart");
+                const cart = savedCart ? JSON.parse(savedCart) : [];
+                
+                if (cart.length === 0 && confirmBtn) {
+                    confirmBtn.style.opacity = "0.5";
+                    confirmBtn.style.pointerEvents = "none";
+                    confirmBtn.style.cursor = "not-allowed";
+                } else if (confirmBtn) {
+                    confirmBtn.style.opacity = "1";
+                    confirmBtn.style.pointerEvents = "auto";
+                    confirmBtn.style.cursor = "pointer";
+                }
+            };
+            
+            checkCart();
+            
+            // Observar cambios en localStorage
+            window.addEventListener('storage', checkCart);
+        });
+    </script>
+</body>
+</html>

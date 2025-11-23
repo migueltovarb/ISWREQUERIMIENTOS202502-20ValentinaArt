@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" width="600" height="320" preserveAspectRatio="xMidYMid meet">
+  <!-- Fondo transparente para que la tarjeta muestre el color de la carta -->
+  <g transform="translate(0,20)">
+    <!-- Base de la tortilla -->
+    <path d="M40 160 C140 40 460 40 560 160 L560 210 C460 120 140 120 40 210 Z" fill="#ffd08a" stroke="#d17c2f" stroke-width="4"/>
+    <!-- Relleno -->
+    <path d="M80 150 C180 80 420 80 520 150 C480 140 360 120 300 140 C240 160 120 160 80 150 Z" fill="#ffcc80"/>
+    <circle cx="200" cy="150" r="8" fill="#ff7043"/>
+    <circle cx="280" cy="145" r="8" fill="#ff7043"/>
+    <circle cx="360" cy="148" r="8" fill="#ff7043"/>
+  </g>
+  <text x="50%" y="96%" font-family="Arial" font-size="18" fill="#6b5a4a" text-anchor="middle">Tacos al Pastor</text>
+</svg>

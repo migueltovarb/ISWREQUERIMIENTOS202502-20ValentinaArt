@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estado del Pedido</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/main.js' %}"></script>
+</head>
+<body>
+    {% include 'partials/header.html' %}
+
+<div class="navbar">
+    <h1>Estado del Pedido</h1>
+    <a href="{% url 'menu' %}">Volver</a>
+</div>
+
+<div class="container">
+    <h1>Consultar estado</h1>
+
+    <div class="status-box">Estado actual: <strong>En preparación</strong></div>
+
+    <div class="timeline">
+        <div id="recibido" class="active">Recibido</div>
+        <div id="preparacion" class="active">En preparación</div>
+        <div id="listo">Listo</div>
+        <div id="camino">En camino</div>
+    </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    if (typeof initCart === 'function') initCart();
+    if (typeof renderUserControls === 'function') renderUserControls();
+
+    // Mostrar fecha del pedido
+    const fechaPedido = localStorage.getItem("fechaPedido");
+    if (fechaPedido) {
+        const el = document.getElementById("fecha-pedido");
+        if (el) el.textContent = fechaPedido;
+    }
+
+    // Simular cambio de estados
+    let estadoActual = 1;
+    const estados = [
+        { nombre: "Recibido", emoji: "✓" },
+        { nombre: "En preparación", emoji: "🍳" },
+        { nombre: "Listo", emoji: "✓" },
+        { nombre: "En camino", emoji: "🚚" }
+    ];
+
+    setInterval(() => {
+        if (estadoActual < estados.length - 1) {
+            estadoActual++;
+            const statusEl = document.getElementById("status");
+            if (statusEl) statusEl.textContent = estados[estadoActual].nombre;
+            const steps = document.querySelectorAll('.timeline-step');
+            steps.forEach((step, index) => {
+                step.classList.remove('current', 'done');
+                if (index < estadoActual) {
+                    step.classList.add('done');
+                } else if (index === estadoActual) {
+                    step.classList.add('current');
+                }
+            });
+        }
+    }, 5000);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Inicio - El Claustro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <script>
+    function _safeAddToCart(name, price){
+      if (typeof addToCart === 'function') return addToCart(name, price);
+      try{ window.location.href = '/carrito/'; } catch(e){}
+    }
+  </script>
+</head>
+<body>
+  <header class="container" style="padding-top:18px;display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <h2 style="margin:0">El Claustro</h2>
+      <div class="kicker">Cocina con alma</div>
+      <div>
+        <p class="kicker">Restaurante La Esquina — Pedidos en línea</p>
+        <h1 class="title">Sistema de Pedidos y Entregas</h1>
+        <p class="subtitle">Haz tu pedido online para recoger o recibir a domicilio. Platos caseros con servicio rápido.</p>
+    </nav>
+  </header>
+
+  <main>
+    <section class="container">
+      <div class="hero">
+        <div style="flex:1">
+          <p class="kicker">Restaurante La Esquina</p>
+          <h1 class="title">Sabores clásicos, diseño moderno</h1>
+          <p class="subtitle">Platos caseros con una estética vintage y servicio contemporáneo.</p>
+          <div style="margin-top:16px">
+            <a href="{% url 'menu' %}" class="btn btn-primary">Ver menú</a>
+            <a href="{% url 'menu' %}#ofertas" class="btn" style="margin-left:8px">Ofertas</a>
+          </div>
+        </div>
+        <div style="width:360px;flex-shrink:0">
+          <img src="{% static 'assets/images/hero-plate.jpg' %}" alt="Plato destacado" style="width:100%;border-radius:12px;box-shadow:0 10px 24px rgba(0,0,0,0.08)">
+        </div>
+      </div>
+
+      <h2 style="margin-top:28px">Platos destacados</h2>
+      <div class="menu-grid" id="featured-grid">
+        <article class="card">
+            <img src="{% static 'assets/images/dish1.jpg' %}" alt="Empanada" style="width:100%;border-radius:8px;height:140px;object-fit:cover">
+          <div class="name">Empanada de la casa</div>
+          <div class="desc">Relleno tradicional con toque secreto</div>
+          <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:center">
+            <div class="price">$4.500</div>
+            <button class="btn btn-primary" onclick="_safeAddToCart('Empanada de la casa',4500)">Agregar</button>
+          </div>
+        </article>
+        <article class="card">
+          <img src="{% static 'assets/images/burger.png' %}" alt="Hamburguesa" style="width:100%;border-radius:8px;height:140px;object-fit:cover">
+          <div class="name">Hamburguesa Clásica</div>
+          <div class="desc">Carne 120g, tomate, lechuga, queso cheddar.</div>
+          <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:center">
+            <div class="price">$25.000</div>
+            <button class="btn btn-primary" onclick="_safeAddToCart('Hamburguesa Clásica',25000)">Agregar</button>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

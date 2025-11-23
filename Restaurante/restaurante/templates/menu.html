@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú - El Claustro</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script>
+        // Wrappers seguros: si js principal no está cargado, no lanzar error; redirigir a rutas servidor
+        function _safeAddToCart(name, price){
+            if (typeof addToCart === 'function') return addToCart(name, price);
+            // si main.js no está disponible, redirigir al menú/carrito
+            try{ window.location.href = '/carrito/'; } catch(e){}
+        }
+    </script>
+</head>
+<body>
+        <header class="header container">
+                <div class="brand">
+                        <div class="logo">EC</div>
+                        <div>
+                                <h1>El Claustro</h1>
+                                <div class="kicker">Cocina con alma</div>
+                        </div>
+                </div>
+                <div class="nav">
+                        <a href="{% url 'menu' %}">Menú</a>
+                        <a href="{% url 'carrito' %}" class="cart-badge">🛒 <span class="cart-count" style="margin-left:8px">0</span></a>
+                </div>
+        </header>
+
+        <section class="container">
+            <div class="hero">
+                <div class="text">
+                    <h2>Sabores que cuentan historias</h2>
+                    <p class="subtitle-muted">Platos preparados con ingredientes frescos y recetas tradicionales.</p>
+                    <div class="cta">
+                        <a href="#menu" class="btn btn-primary">Ver el Menú</a>
+                        <a href="{% url 'carrito' %}" class="btn btn-ghost" style="margin-left:10px">Mi Carrito</a>
+                    </div>
+                </div>
+                <div class="hero-visual">¡Buen Provecho!</div>
+            </div>
+
+            <div id="menu" class="menu-grid">
+        <!-- HAMBURGUESA CLÁSICA -->
+                <div class="item-card">
+                        <div class="media">
+                              <img src="{% static 'assets/images/burger.svg' %}" alt="Hamburguesa Clásica">
+                            <div class="media-badge">$25.000</div>
+                        </div>
+                        <h3>Hamburguesa Clásica</h3>
+                        <p class="desc">Carne 120g, tomate fresco, lechuga, queso cheddar derretido</p>
+                        <div class="price-row">
+                            <div class="price">$25.000</div>
+                            <button class="add-btn" onclick="_safeAddToCart('Hamburguesa Clásica', 25000)">Agregar</button>
+                        </div>
+                </div>
+
+        <!-- PIZZA MARGARITA -->
+                <div class="item-card">
+                        <div class="media">
+                              <img src="{% static 'assets/images/dish1.svg' %}" alt="Pizza Margarita">
+                            <div class="media-badge">$32.000</div>
+                        </div>
+                        <h3>Pizza Margarita</h3>
+                        <p class="desc">Queso mozzarella fresco, tomate natural, albahaca aromática</p>
+                        <div class="price-row">
+                            <div class="price">$32.000</div>
+                            <button class="add-btn" onclick="_safeAddToCart('Pizza Margarita', 32000)">Agregar</button>
+                        </div>
+                </div>
+
+        <!-- PASTA CARBONARA -->
+                <div class="item-card">
+                        <div class="media">
+                              <img src="{% static 'assets/images/pasta.svg' %}" alt="Pasta Carbonara">
+                            <div class="media-badge">$28.000</div>
+                        </div>
+                        <h3>Pasta Carbonara</h3>
+                        <p class="desc">Crema fresca, tocineta crujiente, queso parmesano italiano</p>
+                        <div class="price-row">
+                            <div class="price">$28.000</div>
+                            <button class="add-btn" onclick="_safeAddToCart('Pasta Carbonara', 28000)">Agregar</button>
+                        </div>
+                </div>
+
+        <!-- ENSALADA CÉSAR -->
+                <div class="item-card">
+                        <div class="media">
+                              <img src="{% static 'assets/images/salad.svg' %}" alt="Ensalada César">
+                            <div class="media-badge">$22.000</div>
+                        </div>
+                        <h3>Ensalada César</h3>
+                        <p class="desc">Lechuga romana, pollo grillado, crutones, parmesano, aderezo César</p>
+                        <div class="price-row">
+                            <div class="price">$22.000</div>
+                            <button class="add-btn" onclick="_safeAddToCart('Ensalada César', 22000)">Agregar</button>
+                        </div>
+                </div>
+
+        <!-- TACOS AL PASTOR -->
+                <div class="item-card">
+                        <div class="media">
+                              <img src="{% static 'assets/images/tacos.svg' %}" alt="Tacos al Pastor">
+                            <div class="media-badge">$24.000</div>
+                        </div>
+                        <h3>Tacos al Pastor</h3>
+                        <p class="desc">Carne de cerdo marinada, piña fresca, cebolla, cilantro (3 unidades)</p>
+                        <div class="price-row">
+                            <div class="price">$24.000</div>
+                            <button class="add-btn" onclick="_safeAddToCart('Tacos al Pastor', 24000)">Agregar</button>
+                        </div>
+                </div>
+
+        <!-- SUSHI VARIADO -->
+                <div class="item-card">
+                        <div class="media">
+                              <img src="{% static 'assets/images/sushi.svg' %}" alt="Sushi Variado">
+                            <div class="media-badge">$38.000</div>
+                        </div>
+                        <h3>Sushi Variado</h3>
+                        <p class="desc">Selección de rolls: California, Philadelphia, Spicy Tuna (12 piezas)</p>
+                        <div class="price-row">
+                            <div class="price">$38.000</div>
+                            <button class="add-btn" onclick="_safeAddToCart('Sushi Variado', 38000)">Agregar</button>
+                        </div>
+                </div>
+      </div>
+    </section>
+
+    <footer style="padding:40px 0; text-align:center;">
+        <a class="btn footer-btn" href="{% url 'carrito' %}">🛒 Ver Mi Carrito</a>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión - El Claustro</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% include 'partials/header.html' %}
+
+    <main>
+        <section class="form-container">
+            <div class="form-card">
+                <h1>INICIAR SESIÓN</h1>
+                <p class="sub">Bienvenido de nuevo</p>
+
+                <div class="social-buttons">
+                    <button class="btn-social google" type="button">Continuar con Google</button>
+                    <button class="btn-social facebook" type="button">Continuar con Facebook</button>
+                </div>
+
+                <div class="separator">O INICIA CON TU CORREO</div>
+
+                <form id="login-form">
+                    <label for="login-email">Correo o teléfono</label>
+                    <input id="login-email" type="text" placeholder="ejemplo@correo.com o +57 300 123 4567" required>
+
+                    <label for="login-password">Contraseña</label>
+                    <input id="login-password" type="password" placeholder="********" required>
+
+                    <div id="login-error" class="form-error" style="display:none"></div>
+
+                    <button class="btn btn-primary full" type="submit">Iniciar Sesión</button>
+                </form>
+
+                <a class="forgot" href="{% url 'register' %}">¿No tienes cuenta? Regístrate</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e){
+            e.preventDefault();
+            const emailOrPhone = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            const errorEl = document.getElementById('login-error');
+
+            const saved = localStorage.getItem('user');
+            if(!saved){
+                errorEl.textContent = 'No hay usuario registrado. Por favor regístrate primero.';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            let user;
+            try{ user = JSON.parse(saved); } catch(e){ user = null; }
+            if(!user){
+                errorEl.textContent = 'Error leyendo usuario. Regístrate de nuevo.';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            // Comparar: si existe password guardada, validarla; sino validar sólo por email/phone
+            const matches = (user.password && user.password === password) || (user.email === emailOrPhone) || (user.phone === emailOrPhone);
+            if(!matches){
+                errorEl.textContent = 'Credenciales inválidas. Verifica tu correo/teléfono y contraseña.';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            // Login exitoso: (re-escribimos user en localStorage por si faltaba campo)
+            try{ localStorage.setItem('user', JSON.stringify(user)); } catch(e){ }
+            // Redirigir al menú
+            window.location.href = "{% url 'menu' %}";
+        });
+    </script>
+</body>
+</html>

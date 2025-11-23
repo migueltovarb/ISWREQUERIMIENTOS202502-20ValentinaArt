@@ -1,0 +1,17 @@
+<header class="header container header-global" role="banner" style="display:flex;justify-content:space-between;align-items:center;padding:18px 0;">
+  <div class="brand" style="display:flex;align-items:center;gap:12px">
+    <a href="/" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit">
+      <div class="logo" style="width:48px;height:48px;border-radius:8px;background:#6b5a4a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">EC</div>
+      <div>
+        <h2 style="margin:0;font-size:1.25rem">El Claustro</h2>
+        <div class="kicker" style="font-size:0.85rem;color:var(--muted,#7a6a64)">Cocina con alma</div>
+      </div>
+    </a>
+  </div>
+
+  <nav class="site-nav" aria-label="Navegación principal" style="display:flex;gap:14px;align-items:center">
+    <a href="{% url 'menu' %}">Menú</a>
+    <a href="{% url 'carrito' %}" class="cart-badge">🛒 <span class="cart-count" style="margin-left:6px">0</span></a>
+    <a href="{% url 'login' %}">Iniciar</a>
+  </nav>
+</header>
